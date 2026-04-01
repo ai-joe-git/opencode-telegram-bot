@@ -1,6 +1,8 @@
 import type { StreamingMessagePayload, ResponseStreamer } from "../streaming/response-streamer.js";
 import type { TelegramTextFormat } from "./telegram-text.js";
+import type { Api, RawApi } from "grammy";
 import { logger } from "../../utils/logger.js";
+import { sendTtsVoiceMessage, cleanTextForTts } from "../handlers/tts.js";
 
 interface FinalizeAssistantResponseOptions {
   sessionId: string;
@@ -20,6 +22,9 @@ interface FinalizeAssistantResponseOptions {
     format: TelegramTextFormat,
   ) => Promise<void>;
   deleteMessages: (messageIds: number[]) => Promise<void>;
+  api?: Api<RawApi>;
+  chatId?: number;
+  enableTts?: boolean;
 }
 
 export async function finalizeAssistantResponse({
@@ -35,6 +40,9 @@ export async function finalizeAssistantResponse({
   getReplyKeyboard,
   sendText,
   deleteMessages,
+  api,
+  chatId,
+  enableTts = true,
 }: FinalizeAssistantResponseOptions): Promise<boolean> {
   let streamedMessageIds: number[] = [];
 
@@ -79,6 +87,23 @@ export async function finalizeAssistantResponse({
     const keyboard = getReplyKeyboard();
     const options = keyboard ? { reply_markup: keyboard } : undefined;
     await sendText(part, rawFallbackText, options, format);
+  }
+
+  // TTS: Send voice message if TTS is enabled and configured
+  if (enableTts && api && chatId) {
+    try {
+      // Clean text for TTS (remove code blocks, markdown, etc.)
+      const cleanedText = cleanTextForTts(messageText);
+      
+      if (cleanedText.length > 0) {
+        // Send TTS in background - don't block the response
+        sendTtsVoiceMessage(api, chatId, cleanedText).catch((err) => {
+          logger.warn("[FinalizeResponse] TTS failed:", err);
+        });
+      }
+    } catch (err) {
+      logger.warn("[FinalizeResponse] TTS error:", err);
+    }
   }
 
   return false;

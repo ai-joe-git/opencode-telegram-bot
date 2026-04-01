@@ -7,6 +7,7 @@ export const en = {
   "cmd.description.task": "Create a scheduled task",
   "cmd.description.tasklist": "List scheduled tasks",
   "cmd.description.commands": "Custom commands",
+  "cmd.description.voice": "Select TTS voice",
   "cmd.description.opencode_start": "Start OpenCode server",
   "cmd.description.opencode_stop": "Stop OpenCode server",
   "cmd.description.help": "Help",
@@ -436,6 +437,24 @@ export const en = {
     "🎤 Voice recognition is not configured.\n\nSet STT_API_URL and STT_API_KEY in .env to enable it.",
   "stt.error": "🔴 Failed to recognize audio: {error}",
   "stt.empty_result": "🎤 No speech detected in the audio message.",
+
+  "tts.not_configured":
+    "🔊 Text-to-speech is not configured.\n\nSet TTS_API_URL in .env to enable it.\n\nRecommended: Use pocket-tts-server for local TTS.\nhttps://github.com/ai-joe-git/pocket-tts-server",
+  "tts.voice_changed": "🔊 Voice changed to: {voice}",
+  "tts.voice_error": "🔴 Failed to change voice: {error}",
+  "tts.fetch_voices_error": "🔴 Failed to fetch voices from TTS server.",
+  "tts.synthesis_error": "🔴 Failed to synthesize speech: {error}",
+  "tts.speaking": "🔊 Speaking...",
+  "tts.menu_title": "Select a voice:",
+  "tts.menu_current": "Current voice: {voice}\n\nSelect a voice:",
+  "tts.menu_empty": "⚠️ No voices available. Check TTS server configuration.",
+  "tts.menu_loading": "⏳ Loading voices...",
+  "tts.menu_error": "🔴 Failed to load voices.",
+  "tts.button.off": "🔇 TTS Off",
+  "tts.button.off_description": "Disable voice responses",
+  "tts.button.prev_page": "⬅️ Prev",
+  "tts.button.next_page": "Next ➡️",
+  "tts.off_success": "🔇 Voice responses disabled.",
 } as const;
 
 export type I18nKey = keyof typeof en;

@@ -1,11 +1,11 @@
 {
-  "name": "@grinev/opencode-telegram-bot",
-  "version": "0.14.1",
-  "description": "Telegram bot client for OpenCode to run and monitor coding tasks from chat.",
+  "name": "gateclaw-telegram-bot",
+  "version": "0.15.0",
+  "description": "GateClaw Telegram Bot - A Telegram client for OpenCode with TTS and STT support.",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
-    "opencode-telegram": "dist/cli.js"
+    "gateclaw-telegram": "dist/cli.js"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -34,22 +34,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grinev/opencode-telegram-bot.git"
+    "url": "git+https://github.com/ai-joe-git/gateclaw-telegram-bot.git"
   },
   "keywords": [
+    "gateclaw",
     "opencode",
     "telegram",
     "telegram-bot",
     "grammy",
+    "tts",
+    "stt",
     "developer-tools",
     "cli"
   ],
-  "author": "grinev",
+  "author": "GateClaw Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/grinev/opencode-telegram-bot/issues"
+    "url": "https://github.com/ai-joe-git/gateclaw-telegram-bot/issues"
   },
-  "homepage": "https://github.com/grinev/opencode-telegram-bot#readme",
+  "homepage": "https://github.com/ai-joe-git/gateclaw-telegram-bot#readme",
   "dependencies": {
     "@grammyjs/menu": "^1.3.1",
     "@opencode-ai/sdk": "^1.1.21",

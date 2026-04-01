@@ -35,6 +35,8 @@ export interface Settings {
   currentSession?: SessionInfo;
   currentAgent?: string;
   currentModel?: ModelInfo;
+  currentTtsVoice?: string;
+  ttsEnabled?: boolean;
   pinnedMessageId?: number;
   serverProcess?: ServerProcessInfo;
   sessionDirectoryCache?: SessionDirectoryCacheInfo;
@@ -138,6 +140,29 @@ export function setCurrentModel(modelInfo: ModelInfo): void {
 
 export function clearCurrentModel(): void {
   currentSettings.currentModel = undefined;
+  void writeSettingsFile(currentSettings);
+}
+
+export function getCurrentTtsVoice(): string | undefined {
+  return currentSettings.currentTtsVoice;
+}
+
+export function setCurrentTtsVoice(voice: string): void {
+  currentSettings.currentTtsVoice = voice;
+  void writeSettingsFile(currentSettings);
+}
+
+export function clearTtsVoice(): void {
+  currentSettings.currentTtsVoice = undefined;
+  void writeSettingsFile(currentSettings);
+}
+
+export function isTtsEnabled(): boolean {
+  return currentSettings.ttsEnabled ?? false;
+}
+
+export function setTtsEnabled(enabled: boolean): void {
+  currentSettings.ttsEnabled = enabled;
   void writeSettingsFile(currentSettings);
 }
 
